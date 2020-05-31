@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">filmFinder</string>
+    <string name="title_home">New</string>
+    <string name="title_dashboard">Popular</string>
+</resources>

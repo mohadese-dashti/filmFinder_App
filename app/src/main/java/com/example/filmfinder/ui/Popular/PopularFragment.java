@@ -27,10 +27,10 @@ public class PopularFragment extends Fragment {
         mRecyclerView.setLayoutManager(mGridLayoutManager);
 
 
-        int[] mPlaceList = new int[]{R.drawable.image4,R.drawable.image3,R.drawable.image2,R.drawable.image1};
+      //  int[] mPlaceList = new int[]{R.drawable.image4,R.drawable.image3,R.drawable.image2,R.drawable.image1};
 
-        ListAdapter newAdapter = new ListAdapter(getActivity(), mPlaceList);
-        mRecyclerView.setAdapter(newAdapter);
+      //  ListAdapter newAdapter = new ListAdapter(getActivity(), mPlaceList);
+      //  mRecyclerView.setAdapter(newAdapter);
         return root;
     }
     }

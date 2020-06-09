@@ -9,22 +9,30 @@ import android.widget.ImageView;
 
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.filmfinder.R;
-import com.example.filmfinder.ui.New.DetailActivity;
+import com.example.filmfinder.ui.DetailActivity;
+import com.example.filmfinder.ui.Model.Movies;
+
+import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.PlaceViewHolder> {
 
-    private Context mContext;
-    private int[] mPlaceList;
+
+    Context mContext;
+    List<Movies> mPlaceList;
+    MovieItemClickListener movieItemClickListener;
 
 
-    public ListAdapter(Context mContext, int[] mPlaceList) {
+    public ListAdapter(Context mContext, List<Movies> mPlaceList,MovieItemClickListener listener) {
         this.mContext = mContext;
         this.mPlaceList = mPlaceList;
+        movieItemClickListener=listener;
     }
 
+
+
     @Override
-    public PlaceViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_item,
+    public ListAdapter.PlaceViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.image_item,
                 parent, false);
         return new PlaceViewHolder(view);
     }
@@ -32,22 +40,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.PlaceViewHolde
 
     @Override
     public void onBindViewHolder(final PlaceViewHolder holder, int position) {
-        holder.mPlace.setImageResource(mPlaceList[position]
-        );
-        holder.mPlace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent mIntent = new Intent(mContext, DetailActivity.class);
-                mIntent.putExtra("Image", mPlaceList[holder.getAdapterPosition()]);
-                mContext.startActivity(mIntent);
+        holder.mPlace.setImageResource(mPlaceList.get(position).getMoviePoster());
 
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
-        return mPlaceList.length;
+        return mPlaceList.size();
     }
 
 
@@ -57,6 +56,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.PlaceViewHolde
         public PlaceViewHolder(View itemView) {
             super(itemView);
             mPlace = itemView.findViewById(R.id.ivPlace);
+
+            mPlace.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    movieItemClickListener.onMoveClick(mPlaceList.get(getAdapterPosition()),mPlace);
+
+                }
+            });
         }
     }
 }

@@ -13,11 +13,21 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.filmfinder.R;
 import com.example.filmfinder.ui.Adapter.ListAdapter;
 import com.example.filmfinder.ui.Adapter.MovieItemClickListener;
 import com.example.filmfinder.ui.DetailActivity;
 import com.example.filmfinder.ui.Model.Movies;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +35,12 @@ import java.util.List;
 public class PopularFragment extends Fragment implements MovieItemClickListener {
     private RecyclerView mRecyclerView;
     List<Movies> listPopular;
+    String URL;
+    String RESULT_URL;
+    String URL_Image = "https://image.tmdb.org/t/p/w500";
+    String BASE_URL = "https://api.themoviedb.org/3/movie/";
+    String API_KEY = "?api_key=6357bf9673a213aa08577f4f59fc1544";
+    private RequestQueue requestQueue;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,18 +52,13 @@ public class PopularFragment extends Fragment implements MovieItemClickListener 
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(mGridLayoutManager);
 
-
-        listPopular = new ArrayList<>();
-       // listPopular.add(new Movies("movie 1","director 1","Summary 1",R.drawable.image2,R.drawable.image2));
-       // listPopular.add(new Movies("movie 2","director 2","Summary 2",R.drawable.image1,R.drawable.image1));
-        //listPopular.add(new Movies("movie 3","director 3","Summary 3",R.drawable.image4,R.drawable.image4));
-       // listPopular.add(new Movies("movie 4","director 4","Summary 4",R.drawable.image3,R.drawable.image3));
-        showRecyclerView();
+        getDataNewMovie();
 
         return root;
     }
+
     private void showRecyclerView() {
-        ListAdapter newAdapter = new ListAdapter(getActivity(),listPopular,this);
+        ListAdapter newAdapter = new ListAdapter(getActivity(), listPopular, this);
         mRecyclerView.setAdapter(newAdapter);
     }
 
@@ -58,9 +69,44 @@ public class PopularFragment extends Fragment implements MovieItemClickListener 
         intent.putExtra("MovieName", movie.getMovieName());
         intent.putExtra("MovieImage", movie.getMovieImage());
         intent.putExtra("MoviePoster", movie.getMoviePoster());
-        intent.putExtra("DirectorName", movie.getReleaseDate());
+        intent.putExtra("ReleaseDate", movie.getReleaseDate());
         intent.putExtra("MovieSummary", movie.getMovieSummary());
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), movieImageView, "sharedName");
         startActivity(intent);
+    }
+
+    public void getDataNewMovie() {
+        listPopular = new ArrayList<>();
+        RESULT_URL = "popular";
+        URL = BASE_URL + RESULT_URL + API_KEY;
+        requestQueue = Volley.newRequestQueue(getActivity());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("results");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject results = jsonArray.getJSONObject(i);
+                        String title = results.getString("title");
+                        String poster_path = results.getString("poster_path");
+                        String backdrop_path = results.getString("backdrop_path");
+                        String overview = results.getString("overview");
+                        String release_date = results.getString("release_date");
+                        listPopular.add(new Movies(title, release_date, overview, URL_Image + backdrop_path + API_KEY, URL_Image + poster_path + API_KEY));
+
+                    }
+
+                    showRecyclerView();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
     }
 }

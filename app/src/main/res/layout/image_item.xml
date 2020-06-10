@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:layout_margin="3dp">
 
 
     <ImageView
         android:scaleType="centerCrop"
         android:id="@+id/ivPlace"
         android:layout_width="match_parent"
-        android:layout_margin="5dp"
-        android:layout_height="150dp"
+        android:layout_margin="2dp"
+        android:layout_height="270dp"
         tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

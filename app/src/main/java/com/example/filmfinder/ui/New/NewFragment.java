@@ -36,9 +36,10 @@ import java.util.List;
 public class NewFragment extends Fragment implements MovieItemClickListener {
     private RecyclerView mRecyclerView;
     List<Movies> listNew;
-    String URL ="https://api.themoviedb.org/3/movie/now_playing?api_key=ab66cda7c4961a2384e5c24949cf99fe";
-    String URL_Image="https://image.tmdb.org/t/p/w50";
-    String api_key="6357bf9673a213aa08577f4f59fc1544";
+    String URL;
+    String RESULT_URL;
+    String URL_Image = "https://image.tmdb.org/t/p/w500";
+    String BASE_URL = "https://api.themoviedb.org/3/movie/";
     String API_KEY = "?api_key=6357bf9673a213aa08577f4f59fc1544";
     private RequestQueue requestQueue;
 
@@ -76,6 +77,8 @@ public class NewFragment extends Fragment implements MovieItemClickListener {
     }
     public void getDataNewMovie() {
         listNew = new ArrayList<>();
+        RESULT_URL = "now_playing";
+        URL = BASE_URL + RESULT_URL + API_KEY;
         requestQueue = Volley.newRequestQueue(getActivity());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override

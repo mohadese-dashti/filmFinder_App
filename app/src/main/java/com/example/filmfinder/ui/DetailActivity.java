@@ -14,7 +14,7 @@ import com.example.filmfinder.R;
 
 public class DetailActivity extends AppCompatActivity {
     private TextView tvMovieName;
-    private TextView tvDirectorName;
+    private TextView tvReleaseDate;
     private TextView tvMovieSummary;
     private ImageView ivMoviePoster;
     private ImageView ivMovieImage;
@@ -32,9 +32,9 @@ public class DetailActivity extends AppCompatActivity {
     void iniViews() {
 
         String MovieName = getIntent().getExtras().getString("MovieName");
-        int MovieImage = getIntent().getExtras().getInt("MovieImage");
-        int MoviePoster = getIntent().getExtras().getInt("MoviePoster");
-        String DirectorName = getIntent().getExtras().getString("DirectorName");
+        String MovieImage = getIntent().getExtras().getString("MovieImage");
+        String MoviePoster = getIntent().getExtras().getString("MoviePoster");
+        String ReleaseDate = getIntent().getExtras().getString("ReleaseDate");
         String MovieSummary=getIntent().getExtras().getString("MovieSummary");
 
         ivMoviePoster = findViewById(R.id.MoviePoster);
@@ -44,8 +44,8 @@ public class DetailActivity extends AppCompatActivity {
         tvMovieName.setText(MovieName);
         getSupportActionBar().setTitle(MovieName);
 
-        tvDirectorName = findViewById(R.id.DirectorName);
-        tvDirectorName.setText(DirectorName);
+        tvReleaseDate = findViewById(R.id.ReleaseDate);
+        tvReleaseDate.setText(ReleaseDate);
 
 
         tvMovieSummary = findViewById(R.id.MovieSummary);
@@ -54,7 +54,7 @@ public class DetailActivity extends AppCompatActivity {
 
         ivMovieImage = findViewById(R.id.MovieImage);
         Glide.with(this).load(MovieImage).into(ivMovieImage);
-        ivMovieImage.setImageResource(MovieImage);
+        //ivMovieImage.setImageResource(MovieImage);
 
         ivMoviePoster.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
 

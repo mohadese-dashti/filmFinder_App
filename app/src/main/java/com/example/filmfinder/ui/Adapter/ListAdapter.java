@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.filmfinder.R;
 import com.example.filmfinder.ui.DetailActivity;
 import com.example.filmfinder.ui.Model.Movies;
@@ -40,7 +42,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.PlaceViewHolde
 
     @Override
     public void onBindViewHolder(final PlaceViewHolder holder, int position) {
-        holder.mPlace.setImageResource(mPlaceList.get(position).getMoviePoster());
+        Glide.with(mContext).load(mPlaceList.get(position).getMovieImage())
+                .centerCrop()
+                .placeholder(R.drawable.placeholder)
+                .into(holder.mPlace);
 
     }
 

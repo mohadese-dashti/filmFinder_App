@@ -38,10 +38,10 @@ public class PopularFragment extends Fragment implements MovieItemClickListener 
 
 
         listPopular = new ArrayList<>();
-        listPopular.add(new Movies("movie 1","director 1","Summary 1",R.drawable.image2,R.drawable.image2));
-        listPopular.add(new Movies("movie 2","director 2","Summary 2",R.drawable.image1,R.drawable.image1));
-        listPopular.add(new Movies("movie 3","director 3","Summary 3",R.drawable.image4,R.drawable.image4));
-        listPopular.add(new Movies("movie 4","director 4","Summary 4",R.drawable.image3,R.drawable.image3));
+       // listPopular.add(new Movies("movie 1","director 1","Summary 1",R.drawable.image2,R.drawable.image2));
+       // listPopular.add(new Movies("movie 2","director 2","Summary 2",R.drawable.image1,R.drawable.image1));
+        //listPopular.add(new Movies("movie 3","director 3","Summary 3",R.drawable.image4,R.drawable.image4));
+       // listPopular.add(new Movies("movie 4","director 4","Summary 4",R.drawable.image3,R.drawable.image3));
         showRecyclerView();
 
         return root;
@@ -58,7 +58,7 @@ public class PopularFragment extends Fragment implements MovieItemClickListener 
         intent.putExtra("MovieName", movie.getMovieName());
         intent.putExtra("MovieImage", movie.getMovieImage());
         intent.putExtra("MoviePoster", movie.getMoviePoster());
-        intent.putExtra("DirectorName", movie.getDirectorName());
+        intent.putExtra("DirectorName", movie.getReleaseDate());
         intent.putExtra("MovieSummary", movie.getMovieSummary());
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), movieImageView, "sharedName");
         startActivity(intent);

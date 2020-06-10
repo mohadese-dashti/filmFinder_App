@@ -2,27 +2,21 @@ package com.example.filmfinder.ui.Model;
 
 public class Movies {
     private String MovieName;
-    private String DirectorName;
+    private String ReleaseDate;
     private String MovieSummary;
-    private int MoviePoster;
-    private int MovieImage;
+    private String MoviePoster;
+    private String MovieImage;
 
-    public Movies(String movieName, String directorName, String movieSummary, int moviePoster, int movieImage) {
+    public Movies(String movieName, String releaseDate, String movieSummary, String moviePoster, String movieImage) {
         MovieName = movieName;
-        DirectorName = directorName;
+        ReleaseDate = releaseDate;
         MovieSummary = movieSummary;
         MoviePoster = moviePoster;
         MovieImage = movieImage;
     }
 
 
-    public String getDirectorName() {
-        return DirectorName;
-    }
 
-    public void setDirectorName(String directorName) {
-        DirectorName = directorName;
-    }
 
     public String getMovieName() {
         return MovieName;
@@ -40,19 +34,27 @@ public class Movies {
         MovieSummary = movieSummary;
     }
 
-    public int getMoviePoster() {
+    public String getReleaseDate() {
+        return ReleaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        ReleaseDate = releaseDate;
+    }
+
+    public String getMoviePoster() {
         return MoviePoster;
     }
 
-    public void setMoviePoster(int moviePoster) {
+    public void setMoviePoster(String moviePoster) {
         MoviePoster = moviePoster;
     }
 
-    public int getMovieImage() {
+    public String getMovieImage() {
         return MovieImage;
     }
 
-    public void setMovieImage(int movieImage) {
+    public void setMovieImage(String movieImage) {
         MovieImage = movieImage;
     }
 }

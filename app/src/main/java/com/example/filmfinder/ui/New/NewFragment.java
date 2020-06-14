@@ -59,22 +59,27 @@ public class NewFragment extends Fragment implements MovieItemClickListener {
     }
 
 
-
+    //Show Recyclerview
     private void showRecyclerView() {
         ListAdapter newAdapter = new ListAdapter(getActivity(),listNew,this);
         mRecyclerView.setAdapter(newAdapter);
     }
     @Override
     public void onMoveClick(Movies movies, ImageView movieImageView) {
+        //there we send movie information to detail activity
         Intent intent = new Intent(getActivity(),DetailActivity.class);
+        //send movie information to detail activity
         intent.putExtra("MovieName", movies.getMovieName());
         intent.putExtra("MovieImage", movies.getMovieImage());
         intent.putExtra("MoviePoster", movies.getMoviePoster());
         intent.putExtra("ReleaseDate", movies.getReleaseDate());
         intent.putExtra("MovieSummary", movies.getMovieSummary());
+        //create animation
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), movieImageView, "sharedName");
         startActivity(intent);
     }
+
+    //Get data from api for new movies
     public void getDataNewMovie() {
         listNew = new ArrayList<>();
         RESULT_URL = "now_playing";

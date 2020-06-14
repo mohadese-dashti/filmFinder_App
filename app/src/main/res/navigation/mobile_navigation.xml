@@ -9,7 +9,8 @@
         android:id="@+id/navigation_home"
         android:name="com.example.filmfinder.ui.New.NewFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_New" />
+        tools:layout="@layout/fragment_new"
+        />
 
     <fragment
         android:id="@+id/navigation_dashboard"

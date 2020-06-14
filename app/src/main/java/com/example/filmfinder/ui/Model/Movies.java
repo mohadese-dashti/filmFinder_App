@@ -1,5 +1,6 @@
 package com.example.filmfinder.ui.Model;
-
+//Create model for ListAdapter
+//Using the concept of encapsulation in object orientation, we define the required fields that we want to receive from the api
 public class Movies {
     private String MovieName;
     private String ReleaseDate;

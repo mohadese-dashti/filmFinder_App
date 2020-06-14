@@ -56,7 +56,7 @@ public class PopularFragment extends Fragment implements MovieItemClickListener 
 
         return root;
     }
-
+    //Show Recyclerview
     private void showRecyclerView() {
         ListAdapter newAdapter = new ListAdapter(getActivity(), listPopular, this);
         mRecyclerView.setAdapter(newAdapter);
@@ -65,16 +65,21 @@ public class PopularFragment extends Fragment implements MovieItemClickListener 
 
     @Override
     public void onMoveClick(Movies movie, ImageView movieImageView) {
+        //there we send movie information to detail activity
         Intent intent = new Intent(getActivity(), DetailActivity.class);
+        //send movie information to detail activity
         intent.putExtra("MovieName", movie.getMovieName());
         intent.putExtra("MovieImage", movie.getMovieImage());
         intent.putExtra("MoviePoster", movie.getMoviePoster());
         intent.putExtra("ReleaseDate", movie.getReleaseDate());
         intent.putExtra("MovieSummary", movie.getMovieSummary());
+        //create animation
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), movieImageView, "sharedName");
         startActivity(intent);
     }
 
+
+    //Get data from api for popular movies
     public void getDataNewMovie() {
         listPopular = new ArrayList<>();
         RESULT_URL = "popular";

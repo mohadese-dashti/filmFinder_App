@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -42,6 +43,7 @@ public class NewFragment extends Fragment implements MovieItemClickListener {
     String BASE_URL = "https://api.themoviedb.org/3/movie/";
     String API_KEY = "?api_key=6357bf9673a213aa08577f4f59fc1544";
     private RequestQueue requestQueue;
+    private ProgressBar progressBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class NewFragment extends Fragment implements MovieItemClickListener {
         View root = inflater.inflate(R.layout.fragment_new, container, false);
 
         mRecyclerView = root.findViewById(R.id.recyclerview);
-
+progressBar=root.findViewById(R.id.ProgressBarNew);
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(mGridLayoutManager);
 
@@ -88,6 +90,7 @@ public class NewFragment extends Fragment implements MovieItemClickListener {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                progressBar.setVisibility(View.GONE);
                 try {
                     JSONArray jsonArray = response.getJSONArray("results");
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -109,6 +112,7 @@ public class NewFragment extends Fragment implements MovieItemClickListener {
     }, new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
+            progressBar.setVisibility(View.GONE);
             error.printStackTrace();
         }
     });

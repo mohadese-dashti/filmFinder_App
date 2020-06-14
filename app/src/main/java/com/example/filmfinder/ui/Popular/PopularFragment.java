@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -41,6 +42,7 @@ public class PopularFragment extends Fragment implements MovieItemClickListener 
     String BASE_URL = "https://api.themoviedb.org/3/movie/";
     String API_KEY = "?api_key=6357bf9673a213aa08577f4f59fc1544";
     private RequestQueue requestQueue;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -88,6 +90,7 @@ public class PopularFragment extends Fragment implements MovieItemClickListener 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+
                 try {
                     JSONArray jsonArray = response.getJSONArray("results");
                     for (int i = 0; i < jsonArray.length(); i++) {
